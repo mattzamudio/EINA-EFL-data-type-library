@@ -71,7 +71,7 @@
 /**
  * @addtogroup Eina_File_Group File
  *
- * @brief Functions to handle files and directories.
+ * @brief Handles files and directories.
  *
  * These functions make it easier to do a number of file and directory operations,
  * such as retreiving a list of files in a directory, splitting paths, and determining
@@ -136,10 +136,10 @@ typedef struct _Eina_File Eina_File;
  * File access type used in Eina_File_Direct_info.
  */
 typedef enum {
-  EINA_FILE_RANDOM,     /**< Advise random memory access to the mapped memory. */
-  EINA_FILE_SEQUENTIAL, /**< Advise sequential memory access to the mapped memory. */
-  EINA_FILE_WILLNEED,   /**< Advise need for all the mapped memory. */
-  EINA_FILE_POPULATE    /**< Request all the mapped memory. */
+  EINA_FILE_RANDOM,     /**< Advises random memory access to the mapped memory. */
+  EINA_FILE_SEQUENTIAL, /**< Advises sequential memory access to the mapped memory. */
+  EINA_FILE_WILLNEED,   /**< Advises need for all the mapped memory. */
+  EINA_FILE_POPULATE    /**< Requests all the mapped memory. */
 } Eina_File_Populate;
 
 /* Why do this? When the app using eina is compiled, PATH_MAX may vary 
@@ -209,7 +209,7 @@ struct _Eina_File_Line
 
 /**
  * @def EINA_FILE_DIR_LIST_CB
- * @brief cast to an #Eina_File_Dir_List_Cb.
+ * @brief Casts to an #Eina_File_Dir_List_Cb.
  *
  * @param function The function to cast.
  *
@@ -219,7 +219,7 @@ struct _Eina_File_Line
 
 
 /**
- * @brief List all files on the directory, calling the function for every file found.
+ * @brief Lists all files on the directory, calling the function for every file found.
  *
  * @param dir The directory name.
  * @param recursive Iterate recursively in the directory.
@@ -243,7 +243,7 @@ EAPI Eina_Bool eina_file_dir_list(const char           *dir,
                                   void                 *data) EINA_ARG_NONNULL(1, 3);
 
 /**
- * @brief Split a path according to the delimiter of the filesystem.
+ * @brief Splits a path according to the delimiter of the filesystem.
  *
  * @param path The path to split.
  * @return An array of the parts of the path to split.
@@ -256,10 +256,10 @@ EAPI Eina_Bool eina_file_dir_list(const char           *dir,
 EAPI Eina_Array    *eina_file_split(char *path) EINA_WARN_UNUSED_RESULT EINA_ARG_NONNULL(1) EINA_MALLOC;
 
 /**
- * @brief Get an iterator to list the content of a directory.
+ * @brief Gets an iterator to list the content of a directory.
  *
  * @param  dir The name of the directory to list
- * @return Return an Eina_Iterator that will walk over the files and directories
+ * @return Returns an Eina_Iterator that will walk over the files and directories
  *         in @p dir. On failure, it will return @c NULL.
  *
  * This returns an iterator for shared strings. The name of each file in @p dir will
@@ -277,12 +277,12 @@ EAPI Eina_Array    *eina_file_split(char *path) EINA_WARN_UNUSED_RESULT EINA_ARG
 EAPI Eina_Iterator *eina_file_ls(const char *dir) EINA_WARN_UNUSED_RESULT EINA_ARG_NONNULL(1) EINA_MALLOC;
 
 /**
- * @brief Get an iterator to list the content of a directory, with direct
+ * @brief Gets an iterator to list the content of a directory, with direct
  * information.
  *
  * @param  dir The name of the directory to list.
  *
- * @return Return an Eina_Iterator that will walk over the files and
+ * @return Returns an Eina_Iterator that will walk over the files and
  *         directory in the pointed directory. On failure, it will
  *         return NULL.
  *
@@ -306,7 +306,7 @@ EAPI Eina_Iterator *eina_file_ls(const char *dir) EINA_WARN_UNUSED_RESULT EINA_A
 EAPI Eina_Iterator *eina_file_stat_ls(const char *dir) EINA_WARN_UNUSED_RESULT EINA_ARG_NONNULL(1) EINA_MALLOC;
 
 /**
- * @brief Use the information provided by Eina_Iterator of eina_file_stat_ls or eina_file_direct_ls
+ * @brief Uses the information provided by Eina_Iterator of eina_file_stat_ls or eina_file_direct_ls
  * to call stat in the most efficient way on your system.
  *
  * @param container The container returned by the Eina_Iterator using eina_iterator_container_get().
@@ -324,12 +324,12 @@ EAPI Eina_Iterator *eina_file_stat_ls(const char *dir) EINA_WARN_UNUSED_RESULT E
 EAPI int eina_file_statat(void *container, Eina_File_Direct_Info *info, Eina_Stat *buf) EINA_WARN_UNUSED_RESULT EINA_ARG_NONNULL(1, 2, 3);
 
 /**
- * @brief Get an iterator to list the content of a directory, with direct
+ * @brief Gets an iterator to list the content of a directory, with direct
  * information.
  *
  * @param  dir The name of the directory to list
  *
- * @return Return an Eina_Iterator that will walk over the files and
+ * @return Returns an Eina_Iterator that will walk over the files and
  *         directory in the pointed directory. On failure, it will
  *         return @c NULL.
  *
@@ -355,7 +355,7 @@ EAPI int eina_file_statat(void *container, Eina_File_Direct_Info *info, Eina_Sta
 EAPI Eina_Iterator *eina_file_direct_ls(const char *dir) EINA_WARN_UNUSED_RESULT EINA_ARG_NONNULL(1) EINA_MALLOC;
 
 /**
- * @brief Sanitize file path.
+ * @brief Sanitizes file path.
  *
  * @param path The path to sanitize
  *
@@ -370,7 +370,7 @@ EAPI Eina_Iterator *eina_file_direct_ls(const char *dir) EINA_WARN_UNUSED_RESULT
 EAPI char *eina_file_path_sanitize(const char *path);
 
 /**
- * @brief Get a read-only handler to a file.
+ * @brief Gets a read-only handler to a file.
  *
  * @param name Filename to open
  * @param shared Requested a shm
@@ -389,14 +389,14 @@ EAPI Eina_File *eina_file_open(const char *name, Eina_Bool shared) EINA_WARN_UNU
  *
  * @param file File handler to unref.
  *
- * Decrement file's refcount and if it reaches zero close it.
+ * Decrement file is refcount and if it reaches zero closes it.
  *
  * @since 1.1
  */
 EAPI void eina_file_close(Eina_File *file);
 
 /**
- * @brief Get file size at open time.
+ * @brief Gets file size at open time.
  *
  * @param file The file handler to request the size from.
  * @return The length of the file.
@@ -406,7 +406,7 @@ EAPI void eina_file_close(Eina_File *file);
 EAPI size_t eina_file_size_get(Eina_File *file);
 
 /**
- * @brief Get the last modification time of an open file.
+ * @brief Gets the last modification time of an open file.
  *
  * @param file The file handler to request the modification time from.
  * @return The last modification time.
@@ -416,7 +416,7 @@ EAPI size_t eina_file_size_get(Eina_File *file);
 EAPI time_t eina_file_mtime_get(Eina_File *file);
 
 /**
- * @brief Get the filename of an open file.
+ * @brief Gets the filename of an open file.
  *
  * @param file The file handler to request the name from.
  * @return Stringshared filename of the file.
@@ -426,7 +426,7 @@ EAPI time_t eina_file_mtime_get(Eina_File *file);
 EAPI const char *eina_file_filename_get(Eina_File *file);
 
 /**
- * @brief Get the eXtended attribute of an open file.
+ * @brief Gets the eXtended attribute of an open file.
  *
  * @param file The file handler to request the eXtended attribute from.
  * @return an iterator.
@@ -439,7 +439,7 @@ EAPI const char *eina_file_filename_get(Eina_File *file);
 EAPI Eina_Iterator *eina_file_xattr_get(Eina_File *file);
 
 /**
- * @brief Get the eXtended attribute of an open file.
+ * @brief Gets the eXtended attribute of an open file.
  *
  * @param file The file handler to request the eXtended attribute from.
  * @return an iterator.
@@ -464,7 +464,7 @@ EAPI Eina_Iterator *eina_file_xattr_value_get(Eina_File *file);
 EAPI void *eina_file_map_all(Eina_File *file, Eina_File_Populate rule);
 
 /**
- * @brief Map a part of the file.
+ * @brief Maps a part of the file.
  *
  * @param file The file handler to map in memory.
  * @param rule The rule to apply to the mapped memory.
@@ -490,7 +490,7 @@ EAPI void *eina_file_map_new(Eina_File *file, Eina_File_Populate rule,
 EAPI void eina_file_map_free(Eina_File *file, void *map);
 
 /**
- * @brief Map line-by-line in memory efficiently with an Eina_Iterator
+ * @brief Maps line-by-line in memory efficiently with an Eina_Iterator
  * @param file The file to run over
  * @return an Eina_Iterator that will produce @typedef Eina_File_Lines.
  *
