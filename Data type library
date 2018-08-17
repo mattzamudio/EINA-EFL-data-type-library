@@ -9,7 +9,7 @@
  *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * Lesser General Public License for more details.
  *
  * You should have received a copy of the GNU Lesser General Public
@@ -57,8 +57,8 @@
  *
  * The above ways of retrieving files from a list may produce the same output, but
  * they have an important difference, eina_file_direct_ls() will @b not call
- * stat. This means that on some systems, it may not have file type
- * information. On the other hand, it may be faster than eina_file_stat_ls().
+ * stat. This means that on some systems, it may not have file type information.
+ * On the other hand, it may be faster than eina_file_stat_ls().
  *
  * @page eina_file_example_01
  * @include eina_file_01.c
@@ -146,18 +146,18 @@ typedef enum {
   EINA_FILE_WILLNEED,   /**< Advises need for all the mapped memory */
   EINA_FILE_POPULATE,   /**< Requests for all the mapped memory */
   EINA_FILE_DONTNEED,   /**< Indicates that the memory is no longer needed. This may result in the memory being removed from any caches if applicable. @since 1.8 */
-  EINA_FILE_REMOVE      /**< This memory is to be released. Any content within will be lost. Subsequent accesses will succeed, but they will return fresh memory as if accessed for the first time. This may not succeed if it is not supported by the file system. @since 1.8 */
+  EINA_FILE_REMOVE      /**< This memory is to be released. Any content within will be lost. Subsequent accesses will succeed, but they will return fresh memory as if accessed for the first time. This may not succeed if it is not supported by the filesystem. @since 1.8 */
 } Eina_File_Populate;
 
 /* Why do this? When the app using eina is compiled, PATH_MAX may vary 
 * from eina when eina is compiled. The path buffer below cannot safely, 
-* and portably, vary when exposed, depending on how and when you compile. 
+* and portably, vary when exposed, depending on how and when you compile.
 * It should always be the same on the inside and the outside for both 
 * eina and the apps that use eina. So, define to 8192. Most PATH_MAX values
 * are either 4096 or 1024, with Windows being 260. Thus, 8192 should cover 
 * nearly all possibilities. Still, there is a chance PATH_MAX could be more 
-* than 8192. If anyone spots a PATH_MAX that is bigger, please let us know. 
-* For now, we will assume this never happens. */
+* than 8192. If anyone spots a PATH_MAX that is bigger, please let us know.
+* For now, we will assume this never happens.*/
 /**
  * @def EINA_PATH_MAX
  * @brief Definition for the constant defined as the highest value for PATH_MAX.
@@ -263,7 +263,7 @@ struct _Eina_File_Line
  * @param[in] recursive Iterate recursively in the directory.
  * @param[in] cb The callback to be called.
  * @param[in] data The data to pass to the callback.
- * @return #EINA_TRUE on success, otherwise #EINA_FALSE.
+ * @return #EINA_TRUE on success. Otherwise, #EINA_FALSE.
  */
 EAPI Eina_Bool eina_file_dir_list(const char           *dir,
                                   Eina_Bool             recursive,
@@ -317,7 +317,7 @@ EAPI Eina_Iterator *eina_file_ls(const char *dir) EINA_WARN_UNUSED_RESULT EINA_A
  *
  * @warning The #Eina_File_Direct_Info returned by the iterator <b>must not</b>
  *          be modified in any way.
- * @warning When the iterator is advanced or deleted the #Eina_File_Direct_Info
+ * @warning When the iterator is advanced or deleted, the #Eina_File_Direct_Info
  *          returned is no longer valid.
  *
  * @note The container for the iterator is of type DIR*.
@@ -331,10 +331,11 @@ EAPI Eina_Iterator *eina_file_ls(const char *dir) EINA_WARN_UNUSED_RESULT EINA_A
 EAPI Eina_Iterator *eina_file_stat_ls(const char *dir) EINA_WARN_UNUSED_RESULT EINA_ARG_NONNULL(1) EINA_MALLOC;
 
 /**
- * @brief Uses information provided by #Eina_Iterator of eina_file_stat_ls() or eina_file_direct_ls()
- *        to call stat in the most efficient way for your system.
- * @details This function calls fstatat or stat depending on what your system supports. With complex detection already 
- *          completed by Eina that determines what the system can do, it is efficient and simple to use.
+ * @brief Calls fstat or stat depending on system support.
+ * @details This convenience function calls fstatat or stat depending on what Eina
+ *          has detected your system can do most efficiently, using information
+ *          provided by #Eina_iterator of eina_file_stat_ls() or
+ *          eina_file_direct_ls().
  *
  * @param[in] container The container returned by #Eina_Iterator using eina_iterator_container_get().
  * @param[in] info The content of the current #Eina_File_Direct_Info provided by #Eina_Iterator.
@@ -370,7 +371,7 @@ EAPI int eina_file_statat(void *container, Eina_File_Direct_Info *info, Eina_Sta
  *       path to another directory), then a temporary file will be created inside
  *       the system's temporary directory (@see eina_environment_tmp_get()). If the
  *       @p templatename contains a directory separator ('/', or '\\' on Windows),
- *       then the file will be created inside this directory, which must exist and
+ *       then the file will be created inside the directory, which must exist and
  *       be writeable. Use ./filename.XXXXXX to create files in the current
  *       working directory. (since 1.17)
  *
@@ -388,7 +389,7 @@ EAPI int eina_file_mkstemp(const char *templatename, Eina_Tmpstr **path) EINA_AR
  *                         must be XXXXXX.
  * @param[out] path The path to the created temporary directory, or @c NULL in case of failure.
  *                  It must be released by eina_tmpstr_del().
- * @return On success, @c EINA_TRUE is returned. On error @c EINA_FALSE is returned,
+ * @return On success, @c EINA_TRUE is returned. On error, @c EINA_FALSE is returned,
  *                    in which case @c errno is set appropriately.
  *
  * @note If the @p templatename is a simple directory name (no relative or absolute
@@ -419,7 +420,7 @@ EAPI Eina_Bool eina_file_mkdtemp(const char *templatename, Eina_Tmpstr **path) E
  *          EINA_FILE_UNKNOWN.
  * @warning The #Eina_File_Direct_Info returned by the iterator <b>must not</b>
  *          be modified in any way.
- * @warning When the iterator is advanced or deleted the #Eina_File_Direct_Info
+ * @warning When the iterator is advanced or deleted, the #Eina_File_Direct_Info
  *          returned is no longer valid.
  *
  * @note The container for the iterator is of type DIR*.
@@ -434,7 +435,7 @@ EAPI Eina_Iterator *eina_file_direct_ls(const char *dir) EINA_WARN_UNUSED_RESULT
 
 /**
  * @brief Sanitizes the file path.
- * @details This function takes care of adding the current working directory if its a
+ * @details This function takes care of adding the current working directory if it is a
  *          relative path. It also removes all '..' and '//' references in the original
  *          path.
  *
@@ -467,7 +468,7 @@ typedef enum {
 } Eina_File_Copy_Flags;
 
 /**
- * @brief Copies one file to another using the fastest possible method. Also, report progress.
+ * @brief Copies one file to another using the fastest possible method. Also, reports progress.
  * @details This function tries to splice if it is available. It is blocked
  *          until the whole file is copied or it fails.
  *
@@ -479,13 +480,13 @@ typedef enum {
  * @return #EINA_TRUE on success. Otherwise, #EINA_FALSE (and @p dst
  *         will be deleted).
  *
- * @note During the progress it may call back @p cb with the progress summary.
+ * @note When in progress it may call back @p cb with the progress summary.
  */
 EAPI Eina_Bool eina_file_copy(const char *src, const char *dst, Eina_File_Copy_Flags flags, Eina_File_Copy_Progress cb, const void *cb_data) EINA_ARG_NONNULL(1, 2);
 
 /**
  * @brief Gets a read-only handler to a file.
- * @details This opens a file in a read-only mode. @p name should be an absolute path. An
+ * @details Opens a file in a read-only mode. @p name should be an absolute path. An
  *          #Eina_File handle can be shared among multiple instances if @p shared
  *          is #EINA_TRUE.
  *
@@ -513,7 +514,7 @@ EAPI Eina_File *
 eina_file_virtualize(const char *virtual_name, const void *data, unsigned long long length, Eina_Bool copy) EINA_WARN_UNUSED_RESULT EINA_ARG_NONNULL(1);
 
 /**
- * @brief Tells if a file is a real file, or only exists in memory.
+ * @brief Tells if a file is a real file or if it only exists in memory.
  *
  * @param[in] file The file to test.
  * @return #EINA_TRUE if the file is a virtual file.
@@ -536,9 +537,9 @@ eina_file_virtual(Eina_File *file) EINA_WARN_UNUSED_RESULT EINA_ARG_NONNULL(1);
 EAPI Eina_Bool eina_file_refresh(Eina_File *file);
 
 /**
- * @brief Duplicates a read-only handler of a previously open file.
+ * @brief Duplicates a read-only handler of a previously opened file.
  *
- * @param[in] file To duplicate a reference.
+ * @param[in] file Duplicates a reference.
  * @return #Eina_File handle of the duplicated file.
  *
  * @note Opens a file in read-only mode.
@@ -590,11 +591,11 @@ EAPI const char *eina_file_filename_get(const Eina_File *file);
 /**
  * @brief Gets the extended attribute of an open file.
  *
- * @param[in] file The file handler to request the extended attribute from
+ * @param[in] file The file handler from which to request the extended attribute.
  * @return An iterator.
  *
  * @note The iterator lists all the extended attribute names without allocating
- *       them. If needed, you need to copy them yourself.
+ *       them. You may need to copy them yourself.
  *
  * @since 1.2
  */
@@ -607,7 +608,7 @@ EAPI Eina_Iterator *eina_file_xattr_get(Eina_File *file);
  * @return An iterator.
  *
  * @note The iterator lists all the extended attribute names without allocating
- *       them. If needed, you need to copy them yourself. It returns the
+ *       them. You may need to copy them yourself. Returns the
  *       Eina_Xattr structure.
  *
  * @since 1.2
@@ -634,9 +635,9 @@ EAPI void *eina_file_map_all(Eina_File *file, Eina_File_Populate rule);
  * @param[in] offset The offset inside the file.
  * @param[in] length The length of the memory to map.
  * @return A valid pointer to the system memory with @p length valid bytes in it \n.
- *         @c NULL if it is not inside the file or something else goes wrong.
+ *         @c NULL if it is not inside the file, or something else goes wrong.
  *
- * @note This handles reference counting, so it can share the same memory area.
+ * @note This handles reference counting so it can share the same memory area.
  *
  * @since 1.1
  */
@@ -655,11 +656,12 @@ EAPI void eina_file_map_free(Eina_File *file, void *map);
 
 /**
  * @brief Asks the OS to populate. Otherwise, populates pages of memory in file mapping.
- * @details This advises the OS on what to do with the memory mapped
- *          to the given @p file. This affects a specific range of memory and may not
- *          be honored if the system chooses to ignore the request.
+ * @details Tells the OS what to do with the memory mapped
+ *          to the given @p file. This affects a specific range 
+ *          of memory and may not be honored if the system chooses 
+ *          to ignore the request.
  * 
- * @param[in] file The file handle from which the map comes.
+ * @param[in] file The file handle where the map comes from.
  * @param[in] rule The rule to apply to the mapped memory.
  * @param[in] map Memory that was mapped inside of what the memory range is.
  * @param[in] offset The offset, in bytes, from the start of the map address.
@@ -674,8 +676,8 @@ eina_file_map_populate(Eina_File *file, Eina_File_Populate rule, const void *map
 /**
  * @brief Maps line-by-line in the memory by efficiently using an #Eina_Iterator.
  * @details This function returns an iterator that acts like fgets without
- *          useless memcpy. Be aware that once eina_iterator_next has been called,
- *          nothing can guarantee that the memory will still be mapped.
+ *          useless memcpy. Once eina_iterator_next has been called,
+ *          there is no guarantee the memory will still be mapped.
  *
  * @param[in] file The file to run over.
  * @return An Eina_Iterator that produces #Eina_File_Line.
@@ -688,8 +690,8 @@ EAPI Eina_Iterator *eina_file_map_lines(Eina_File *file);
  * @brief Tells whether there has been an IO error during the life of a mmaped file.
  *
  * @param[in] file The file handler to the mmaped file.
- * @param[in] map The memory map to check if an error has occurred in it.
- * @return #EINA_TRUE if there has been an IO error, otherwise #EINA_FALSE.
+ * @param[in] map Check if an error has occurred in the mmaped file.
+ * @return #EINA_TRUE if there has been an IO error. Otherwise, #EINA_FALSE.
  *
  * @since 1.2
  */
@@ -722,12 +724,12 @@ static inline size_t eina_file_path_join_len(char *dst,
 
 /**
  * @brief Joins two paths of a known length.
- * @details This function is similar to eina_file_path_join_len(), but will compute
+ * @details This function is similar to eina_file_path_join_len(), but it computes
  *          the length of @p a and @p b using strlen(). The path separator is
  *          '\' on Windows and '/' otherwise.
  *
  * @param[out] dst The buffer to store the result.
- * @param[in] size Size (in byte) of the buffer.
+ * @param[in] size Size, in bytes, of the buffer.
  * @param[in] a First string to use.
  * @param[in] b Second string to use.
  * @return The number of characters printed.
@@ -744,7 +746,7 @@ static inline size_t eina_file_path_join(char *dst,
 
 /**
  * @brief Unlinks file.
- * @details This function is a wrapper around the unlink() system call. It removes a link to
+ * @details This function is a wraps the unlink() system call. It removes a link to
  *          a file.
  *
  * @param[in] pathname File name to unlink.
@@ -757,7 +759,7 @@ EAPI Eina_Bool eina_file_unlink(const char *pathname);
 /**
  * @brief Make sure a file descriptor will be closed on exec.
  * @details This function is a wrapper around the fnctl() system call. It makes sure
- *          that the fd will be closed whenever exec is called.
+ *          the fd will be closed whenever exec is called.
  *
  * @param[in] fd File descriptor to enforce close on exec on.
  * @param[in] on On #EINA_TRUE, this will turn close on exec on. On #EINA_FALSE, this will turn it off.
