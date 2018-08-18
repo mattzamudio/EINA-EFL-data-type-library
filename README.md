@@ -1,5 +1,5 @@
 # Introduction
-This repository is a collection of documents I have edited and written for Englightenment open-source software. Each of these files are small pieces of the Enlightenment Foundation Libraries, or EFL, which powers millions of systems including:
+This repository is a collection of documents I have edited and written for Englightenment open-source software. These files are small pieces of the Enlightenment Foundation Libraries, or EFL, which powers millions of systems including:
 * Samsung Galaxy Wearables
 * Samsung Smart TVs (such as the Class Q9F QLED 4K TV)
 * Smart Refrigerators (such as the Samsung Family Hub)
